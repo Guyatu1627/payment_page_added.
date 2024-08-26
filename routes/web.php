@@ -6,6 +6,15 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\EventRegisterController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\Admin\AdminForgotPasswordController;
+
+Route::prefix('admin')->group(function () {
+
+});
+
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,7 +29,8 @@ Route::get('/', function () {
     Route::post('/admin/register', [App\Http\Controllers\AdminController::class, 'registerPost'])->name('admin.registerPost');
     Route::get('/admin/login', [App\Http\Controllers\AdminController::class, 'login'])->name('admin.login');
     Route::post('/admin/login', [App\Http\Controllers\AdminController::class, 'loginPost'])->name('admin.loginPost');
-
+    Route::get('/admin/forgot', [AdminForgotPasswordController::class, 'showForgotPasswordForm'])->name('admin.forgot');
+    Route::post('/admin/forgot', [AdminForgotPasswordController::class, 'sendResetLink'])->name('admin.sendResetLink');
 
     Route::get('/admin/logout', [App\Http\Controllers\IsAdminController::class, 'AdminLogout'])->name('admin.logout');
 
