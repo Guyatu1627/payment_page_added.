@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
@@ -17,18 +17,19 @@ class AdminForgotPasswordController extends Controller
     public function sendResetLink(Request $request)
     {
         $request->validate([
-            'username' => 'required|exists:admins,username',
+            'name' => 'required|exists:admins,name',
+            'password' => 'required|string|confirmed',
         ]);
 
-        // Generate a random password
-        $newPassword = bin2hex(random_bytes(4));
+        $admin = Admin::where('name', $request->name)->first();
 
-        // Find the user and update the password
-        $admin = Admin::where('username', $request->username)->first();
-        $admin->password = Hash::make($newPassword);
+        if (!$admin) {
+            return back()->withErrors(['name' => 'The provided name does not exist.']);
+        }
+
+        $admin->password = Hash::make($request->password);
         $admin->save();
 
-        // Send the new password back to the user via a success message
-        return redirect()->route('admin.login')->with('status', "Your new password is: $newPassword");
+        return redirect()->route('admin.login')->with('status', 'Password has been reset!');
     }
 }
