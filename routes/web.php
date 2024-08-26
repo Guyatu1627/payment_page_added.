@@ -12,25 +12,16 @@ Route::prefix('admin')->group(function () {
 
 });
 
-
-
-
-
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin.login');
 });
-
-
-
-
-
 
     Route::get('/admin/register', [App\Http\Controllers\AdminController::class, 'register'])->name('admin.register');
     Route::post('/admin/register', [App\Http\Controllers\AdminController::class, 'registerPost'])->name('admin.registerPost');
     Route::get('/admin/login', [App\Http\Controllers\AdminController::class, 'login'])->name('admin.login');
     Route::post('/admin/login', [App\Http\Controllers\AdminController::class, 'loginPost'])->name('admin.loginPost');
     Route::get('/admin/forgot', [App\Http\Controllers\AdminForgotPasswordController::class, 'showForgotPasswordForm'])->name('admin.forgot');
-    Route::post('/admin/forgot', [App\Http\Controllers\AdminForgotPasswordController::class, 'sendResetLink'])->name('admin.sendResetLink');
+    Route::post('/admin/forgot', [AdminForgotPasswordController::class, 'sendResetLink'])->name('admin.sendResetLink');
 
     Route::get('/admin/logout', [App\Http\Controllers\IsAdminController::class, 'AdminLogout'])->name('admin.logout');
 
