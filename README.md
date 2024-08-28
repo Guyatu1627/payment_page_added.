@@ -70,3 +70,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 >>>>>>> origin/master
 "# payment_page_added." 
 "# laravel_dashboard-master-updated" 
+"# Laravel_Football_Club_Management_Dashboard" 
