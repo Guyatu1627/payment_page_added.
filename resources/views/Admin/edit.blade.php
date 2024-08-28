@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Member Management System</title>
+    <title>Edit Post</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="{{asset('admin/css/styles.css')}}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -21,13 +21,13 @@
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand ps-2" href="{{ url('admin/dashboard')}}">Member Management System</a>
+        <a class="navbar-brand ps-2" href="{{ url('admin/dashboard')}}">Admin Dashboard</a>
         <button class="btn btn-link btn-sm order-0 order-lg-0 ms-5" id="sidebarToggle"><i class="fas fa-bars"></i></button>
         <ul class="navbar-nav ms-auto ms-md-45 me-10 me-lg-5">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ route('admin.settings') }}">Settings</a></li>
                     <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                     <li><hr class="dropdown-divider" /></li>
                     <li><a class="dropdown-item" href="{{ route('admin.logout') }}">Logout</a></li>
@@ -82,7 +82,7 @@
                 </nav>
             </div>
             <a class="nav-link" href="{{ route('admin.registeredusers') }}">👤 View Users</a>
-            <a class="nav-link" href="#!">💳 Payments</a>
+            <a class="nav-link" href="{{ route('user.payment.form') }}">💳 Payments</a>
         </div>
     </div>
 </nav>

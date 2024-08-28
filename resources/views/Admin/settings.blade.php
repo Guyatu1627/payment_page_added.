@@ -34,7 +34,7 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="{{ route('admin.settings') }}">Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ route('admin.settings') }}">settings</a></li>
                     <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                     <li>
                         <hr class="dropdown-divider" />
@@ -108,67 +108,81 @@
 
         </div>
         <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid px-4">
-                    <h1 class="mt-4">Dashboard</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
-                    <div class="row">
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card bg-primary text-white mb-4">
-                                <div class="card-body">Total Blogs
-                                    <h2>{{ $post }}</h2>
-                                </div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="{{ url('/admin/post') }}">View
-                                        Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card bg-primary text-white mb-4">
-                                <div class="card-body">Total News and Updates
-                                    <h2>{{ $events }}</h2>
-                                </div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="{{ url('/admin/news') }}">View
-                                        Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card bg-primary text-white mb-4">
-                                <div class="card-body">Total Events
-                                    <h2>{{ $news }}</h2>
-                                </div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="{{ url('/admin/events') }}">View
-                                        Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-md-12">
 
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card bg-success text-white mb-4">
-                                <div class="card-body">Total Users
-                                    <h2>{{ $admins }}</h2>
+                @if (session('message'))
+                    <h4 class="alert alert-warning">{{ session('message') }}</h4>
+                @endif
 
-
-                                </div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link"
-                                        href="{{ url('/admin/registeredusers') }}">View Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Website Settings</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('admin.settings.addsettings') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                                <label> Website Name</label>
+                                <input type="text" name="website_name" required
+                                    @if ($setting) value="{{ $setting->website_name }}" @endif
+                                    class="form-control" />
                             </div>
-                        </div>
+                            <div class="mb-3">
+                                <label> Website Logo</label>
+                                <input type="file" name="website_logo" required class="form-control" />
+                                @if ($setting)
+                                    <img src="{{ asset('uploads/settings/' . $setting->logo) }}" width='70px'
+                                        height='70px' alt="logo">
+                                @endif
+                            </div>
+                            <div class="mb-3">
+                                <label> Website Favicon</label>
+                                <input type="file" name="website_favicon" class="form-control" />
+                                @if ($setting)
+                                    <img src="{{ asset('uploads/settings/' . $setting->favicon) }}" width='70px'
+                                        height='70px' alt="logo">
+                                @endif
+                            </div>
+                            <div class="mb-3">
+                                <label> Description</label>
+                                <textarea name="description" class="form-control" rows="3">
+@if ($setting)
+{{ $setting->description }}
+@endif
+</textarea>
+                            </div>
+
+                            <h4>SEO - Meta Tags</h4>
+                            <div class="mb-3">
+                                <label> Meta Title</label>
+                                <input type="text" name="meta_title"
+                                    @if ($setting) value="{{ $setting->meta_title }}" @endif
+                                    class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label> Meta Keyword</label>
+                                <textarea name="meta_keyword" class="form-control" rows="3">
+@if ($setting)
+{{ $setting->meta_keyword }}
+@endif
+</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label> Meta Description</label>
+                                <textarea name="meta_description" class="form-control" rows="3">
+@if ($setting)
+{{ $setting->meta_description }}
+@endif
+</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </main>
+            </div>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">

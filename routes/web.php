@@ -7,10 +7,7 @@ use App\Http\Controllers\EventRegisterController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\AdminForgotPasswordController;
-
-Route::prefix('admin')->group(function () {
-
-});
+use App\Http\Controllers\SettingController;
 
 Route::get('/', function () {
     return redirect()->route('admin.login');
@@ -60,9 +57,8 @@ Route::get('/', function () {
     Route::get('/admin/registeredusers/{user_id}', [App\Http\Controllers\RegUserController::class, 'EditUser'])->name('admin.edituser');
     Route::put('/admin/updateuser/{user_id}', [App\Http\Controllers\RegUserController::class, 'Update']);
 
-
-
-
+    Route::get('/admin/settings', [App\Http\Controllers\SettingController::class, 'index'])->name('admin.settings');
+    Route::post('/admin/settings', [App\Http\Controllers\SettingController::class, 'savedata'])->name('admin.settings.addsettings');
 
 
 
